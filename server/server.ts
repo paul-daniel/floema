@@ -1,6 +1,10 @@
 import path from 'path';
 import dotenv from 'dotenv';
 import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import client from './config/prismicConfig';
+
+// Assuming your Webpack dev server is running on port 8080
 
 dotenv.config();
 
@@ -16,6 +20,11 @@ const MOCK_DATA = {
   },
 };
 
+app.use('/main.css', createProxyMiddleware({
+  target: `http://localhost:${process.env.PORT_WEBPACK}`,
+  changeOrigin: true,
+}));
+
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 
@@ -23,7 +32,9 @@ app.get('/', (req: express.Request, res : express.Response) => {
   res.render('pages/home', MOCK_DATA);
 });
 
-app.get('/about', (req: express.Request, res : express.Response) => {
+app.get('/about', async (req: express.Request, res : express.Response) => {
+  const document = await client.getSingle('about');
+  console.log({ document });
   res.render('pages/about', MOCK_DATA);
 });
 

@@ -22,6 +22,7 @@ const config : webpack.Configuration = {
       dirAssets,
       dirNode,
     ],
+    extensions: ['.ts', '.js', '.tsx', '.jsx'],
   },
 
   plugins: [
