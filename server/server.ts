@@ -7,7 +7,8 @@ import client from './config/prismicConfig';
 import { AboutData } from './model/about.type';
 import { MetaData } from './model/metadata.type';
 import { Home } from './model/home.type';
-
+import DocumentType from './model/documentType.type';
+import { Product } from './model/product.type';
 // BASE CONFIG
 dotenv.config();
 const app = express();
@@ -62,15 +63,19 @@ app.get('/about', async (req: express.Request, res : express.Response) => {
   }
 });
 
-app.get('/detail/:id', async (req: express.Request, res : express.Response) => {
+app.get('/detail/:uid', async (req: express.Request, res : express.Response) => {
   try {
-    const document = await client.getSingle('about');
+    const document = await client.getByUID(DocumentType.PRODUCT, req.params.uid, {
+      fetchLinks: [
+        'collection.title',
+      ],
+    });
     const meta = await client.getSingle('metadata');
 
     if (document.data && meta.data) {
-      const data = document.data as AboutData;
+      const data = document.data as Product;
       const metadata = meta.data as MetaData;
-      res.render('pages/detail', { meta: metadata, about: data });
+      res.render('pages/detail', { meta: metadata, product: data });
     } else {
       throw new Error('no data found');
     }
@@ -96,9 +101,13 @@ app.get('/collections', async (req: express.Request, res : express.Response) => 
   }
 });
 
-app.get('/test', async (req: express.Request, res : express.Response) => {
+app.get('/test/:uid', async (req: express.Request, res : express.Response) => {
   try {
-    const document = await client.getSingle('about');
+    const document = await client.getByUID(DocumentType.PRODUCT, req.params.uid, {
+      fetchLinks: [
+        'collection.title',
+      ],
+    });
     res.send(document.data);
   } catch (error) {
     console.error(error);
