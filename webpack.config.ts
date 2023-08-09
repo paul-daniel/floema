@@ -33,10 +33,6 @@ const config : webpack.Configuration = {
     new CopyPlugin({
       patterns: [
         {
-          from: './offline.html',
-          to: '',
-        },
-        {
           from: './shared',
           to: '',
         },

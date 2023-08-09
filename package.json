@@ -83,6 +83,7 @@
   },
   "dependencies": {
     "@prismicio/client": "^7.1.0",
+    "@prismicio/helpers": "^2.3.9",
     "autoprefixer": "^10.2.4",
     "body-parser": "^1.19.0",
     "clean-webpack-plugin": "^4.0.0",

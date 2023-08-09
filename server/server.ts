@@ -1,49 +1,108 @@
 import path from 'path';
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { NextFunction } from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import prismicH from '@prismicio/helpers';
 import client from './config/prismicConfig';
+import { AboutData } from './model/about.type';
+import { MetaData } from './model/metadata.type';
+import { Home } from './model/home.type';
 
-// Assuming your Webpack dev server is running on port 8080
-
+// BASE CONFIG
 dotenv.config();
-
 const app = express();
 const PORT = process.env.PORT_BACK || 8082;
-const MOCK_DATA = {
-  meta: {
-    data: {
-      title: 'Floema',
-      description: 'a beautiful jewelry',
-      image: '',
-    },
-  },
-};
 
+// PROXY WITH WEBPACK
 app.use('/main.css', createProxyMiddleware({
   target: `http://localhost:${process.env.PORT_WEBPACK}`,
   changeOrigin: true,
 }));
 
+app.use((req: express.Request, res : express.Response, next : NextFunction) => {
+  res.locals.prismicDom = prismicH;
+  next();
+});
+
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 
-app.get('/', (req: express.Request, res : express.Response) => {
-  res.render('pages/home', MOCK_DATA);
+// ENDPOINTS
+app.get('/', async (req: express.Request, res : express.Response) => {
+  try {
+    const document = await client.getSingle('home');
+    const meta = await client.getSingle('metadata');
+
+    if (document.data && meta.data) {
+      const data = document.data as Home;
+      const metadata = meta.data as MetaData;
+      res.render('pages/home', { meta: metadata, home: data });
+    } else {
+      throw new Error('no data found');
+    }
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 app.get('/about', async (req: express.Request, res : express.Response) => {
-  const document = await client.getSingle('about');
-  console.log({ document });
-  res.render('pages/about', { ...MOCK_DATA, document });
+  try {
+    const document = await client.getSingle('about');
+    const meta = await client.getSingle('metadata');
+
+    if (document.data && meta.data) {
+      const data = document.data as AboutData;
+      const metadata = meta.data as MetaData;
+      res.render('pages/about', { meta: metadata, about: data });
+    } else {
+      throw new Error('no data found');
+    }
+  } catch (error) {
+    console.error(error);
+  }
 });
 
-app.get('/detail/:id', (req: express.Request, res : express.Response) => {
-  res.render('pages/detail', MOCK_DATA);
+app.get('/detail/:id', async (req: express.Request, res : express.Response) => {
+  try {
+    const document = await client.getSingle('about');
+    const meta = await client.getSingle('metadata');
+
+    if (document.data && meta.data) {
+      const data = document.data as AboutData;
+      const metadata = meta.data as MetaData;
+      res.render('pages/detail', { meta: metadata, about: data });
+    } else {
+      throw new Error('no data found');
+    }
+  } catch (error) {
+    console.error(error);
+  }
 });
 
-app.get('/collections', (req: express.Request, res : express.Response) => {
-  res.render('pages/collections', MOCK_DATA);
+app.get('/collections', async (req: express.Request, res : express.Response) => {
+  try {
+    const document = await client.getSingle('about');
+    const meta = await client.getSingle('metadata');
+
+    if (document.data && meta.data) {
+      const data = document.data as AboutData;
+      const metadata = meta.data as MetaData;
+      res.render('pages/collections', { meta: metadata, about: data });
+    } else {
+      throw new Error('no data found');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+app.get('/test', async (req: express.Request, res : express.Response) => {
+  try {
+    const document = await client.getSingle('about');
+    res.send(document.data);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 app.listen(PORT, () => {

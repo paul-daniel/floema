@@ -4,5 +4,19 @@ block variables
   - var template = 'about'
 
 block content
-  h1.collection__title About
+  .about 
+    .about__wrapper 
+      section.about__gallery
+        .about__gallery__wrapper
+          each media in about.gallery
+            figure.about__gallery__media
+              img.about__gallery__media__image(alt=media.image.alt src=media.image.url)
+      each section in about.body 
+        if section.slice_type == 'title'
+          h2.about__title=section.primary.text
+        if section.slice_type == 'content'
+          section.about__content
+            .about__content__wrapper 
+              p.about__content_label=section.primary.label 
 
+              .about__content_description
