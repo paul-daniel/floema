@@ -1,6 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
-import CopyPlugin from 'copy-webpack-plugin';
+// import CopyPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev';
@@ -30,14 +30,14 @@ const config : webpack.Configuration = {
       IS_DEVELOPMENT,
     }),
 
-    new CopyPlugin({
-      patterns: [
-        {
-          from: './shared',
-          to: '',
-        },
-      ],
-    }),
+    // new CopyPlugin({
+    //   patterns: [
+    //     {
+    //       from: './shared',
+    //       to: '',
+    //     },
+    //   ],
+    // }),
 
     new MiniCssExtractPlugin({
       filename: '[name].css',
