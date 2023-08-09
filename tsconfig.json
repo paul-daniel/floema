@@ -16,6 +16,6 @@
     "server/**/*.ts"
   ],
   "exclude": [
-    "node_modules"                              // Folders to be excluded from the compilation
+    "node_modules",                           // Folders to be excluded from the compilation
   ]
 }

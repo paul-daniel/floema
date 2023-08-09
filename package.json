@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\" \"npm run browsersync\" ",
-    "browsersync": "ts-node browserSync.ts",
+    "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\"",
     "backend:build": "tsc && node dist/server.js",
     "backend:development": "nodemon server/server.ts",
     "frontend:build": "webpack --progress --config webpack.config.build.ts",
@@ -86,7 +85,6 @@
     "@prismicio/client": "^7.1.0",
     "autoprefixer": "^10.2.4",
     "body-parser": "^1.19.0",
-    "browser-sync": "^2.29.3",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "cssnano": "^4.1.10",

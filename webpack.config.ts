@@ -13,7 +13,7 @@ const dirNode = 'node_modules';
 const config : webpack.Configuration = {
   entry: {
     main: [path.join(dirApp, 'index.ts'), path.join(dirStyles, 'index.scss')],
-    'service-worker': path.join(dirApp, 'service-worker.ts'),
+    // 'service-worker': path.join(dirApp, 'service-worker.ts'),
   },
 
   resolve: {

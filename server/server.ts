@@ -35,7 +35,7 @@ app.get('/', (req: express.Request, res : express.Response) => {
 app.get('/about', async (req: express.Request, res : express.Response) => {
   const document = await client.getSingle('about');
   console.log({ document });
-  res.render('pages/about', MOCK_DATA);
+  res.render('pages/about', { ...MOCK_DATA, document });
 });
 
 app.get('/detail/:id', (req: express.Request, res : express.Response) => {

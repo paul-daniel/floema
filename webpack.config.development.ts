@@ -20,6 +20,9 @@ const devConfig = {
     port: PORT,
     hot: true,
     watchContentBase: true,
+    proxy: {
+      '/': `http://localhost:${process.env.PORT_BACK}`,
+    },
   },
 
   output: {
