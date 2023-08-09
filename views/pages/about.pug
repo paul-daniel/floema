@@ -19,4 +19,7 @@ block content
             .about__content__wrapper 
               p.about__content_label=section.primary.label 
 
-              .about__content_description
+              .about__content_description!=prismicDom.asHTML(section.primary.description)
+
+              figure.about__content__media
+                img.about__content__media__image(alt=section.primary.image.alt src=section.primary.image.url)
