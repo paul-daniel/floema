@@ -1,7 +1,6 @@
 import path from 'path';
 import dotenv from 'dotenv';
 import express, { NextFunction } from 'express';
-import { createProxyMiddleware } from 'http-proxy-middleware';
 import prismicH from '@prismicio/helpers';
 import morgan from 'morgan';
 import errorHandler from 'errorhandler';
@@ -33,10 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 app.use(errorHandler());
 
-app.use('/main.css', createProxyMiddleware({
-  target: `http://localhost:${process.env.PORT_WEBPACK}`,
-  changeOrigin: true,
-}));
+app.use(express.static('dist'));
 
 app.use((req: express.Request, res : express.Response, next : NextFunction) => {
   res.locals.prismicDom = prismicH;

@@ -17,7 +17,7 @@ block content
         if section.slice_type == 'content'
           section.about__content
             .about__content__wrapper 
-              p.about__content_label=section.primary.label 
+              p.about__content__label=section.primary.label 
 
               .about__content_description!=prismicDom.asHTML(section.primary.description)
 

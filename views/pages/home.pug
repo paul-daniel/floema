@@ -11,8 +11,9 @@ block content
           .home__titles__label=`Collection ${numToWord(index)}`
           .home__titles__title=collection.title
           
-      each media in home.gallery
-        figure.home__gallery__media 
-          img.home__gallery__media__image(alt=media.image.alt src=media.image.url)
+      .home__gallery    
+        each media in home.gallery
+          figure.home__gallery__media 
+            img.home__gallery__media__image(alt=media.image.alt src=media.image.url)
 
-      a(href="/collections")=home.button
+      a.home__link(href="/collections")=home.button
