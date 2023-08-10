@@ -1,0 +1,9 @@
+html{
+  font-size: 62.5%;
+}
+
+body{
+  @extend %description-16;
+
+  font-family: $font-suisse-bp;
+}

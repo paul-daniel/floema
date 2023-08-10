@@ -64,7 +64,7 @@
     "glslify-loader": "^2.0.0",
     "gsap": "^3.6.0",
     "html-webpack-plugin": "^4.5.1",
-    "include-media": "^1.4.9",
+    "include-media": "^1.4.10",
     "node-sass": "^9.0.0",
     "nodelist-foreach-polyfill": "^1.2.0",
     "normalize-wheel": "^1.0.1",

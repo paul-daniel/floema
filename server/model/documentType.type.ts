@@ -1,6 +1,8 @@
 /* eslint-disable no-shadow */
 enum DocumentType {
-  PRODUCT = 'product'
+  PRODUCT = 'product',
+  ABOUT = 'about',
+  COLLECTIONS = 'collections'
 }
 
 export default DocumentType;
