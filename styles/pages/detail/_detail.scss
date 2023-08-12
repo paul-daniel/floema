@@ -1,70 +1,107 @@
 .detail{
   @extend %cover;
+  @extend %center;
+
+  background-color: $color-quicksand;
+  color: $color-white;
 } 
 
-.detail__wrapper{
-
+.detail__wrapper {
+  display: flex;
+  align-items: center;
 }
 
 .detail__media {
-
+  width: 55.4rem;
+  height: 78.2rem;
+  position: relative;
 }
 
-.detail__media__image{
+.detail__media__image {
+  @extend %cover;
 
+  object-fit: cover;
 }
 
 .detail__information {
+  padding-left: 8.2rem;
 
 }
 
-.detail__information__collection{
-
+.detail__information__collection {
+  @extend %description-12;
+  margin-bottom: 4rem;
+  text-transform: uppercase;
 }
 
-.detail__information__title{
+.detail__information__title {
+  @extend %title-120;
 
+  max-width: 60rem;
+  line-height: 1;
 }
 
-.detail__information__content{
+.detail__information__content {
+  padding-left: 18rem;
 
 }
-
 .detail__information__highlights {
+  margin-top: 5rem;
+}
+
+.detail__information__highlight {
+  align-items: center;
+  display: flex;
+
+  &:not(:first-child) {
+    margin-top: 4rem;
+  }
+}
+
+.detail__information__highlight__icon {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  margin-right: 3.75rem;
 
 }
 
-.detail__information__highlight{
-
+.detail__information__highlight__text {
+  @extend %description-16;
 }
 
-.detail__information__highlight__icon{
-
-}
-
-.detail__information__highlight__text{
-
-}
-
-.detail__information__list{
-
+.detail__information__list {
+  margin-top: 4rem;
 }
 
 .detail__information__item {
+  display: flex;
 
+  &:not(:first-child) {
+    margin-top: 4rem;
+  }
 }
 
-.detail__information__item__title{
-
+.detail__information__item__title {
+  @extend %description-12;
+  padding-right: 2.5rem;
+  width: 10rem;
 }
 
-.detail__information__item__description{
+.detail__information__item__description {
+  @extend %description-16;
 
+  letter-spacing: 0.03rem;
+  max-width: 44rem;
 }
 
-.detail__information__link{
+.detail__information__link {
+  margin-top: 3rem;
+  display: inline-block;
+  text-decoration: none;
+  color: $color-white;
 
+  @extend %title-30;
 }
-
-
 
