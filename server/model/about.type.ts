@@ -35,6 +35,7 @@ export interface Primary {
   image?: Image;
   type?: string;
   title?: string;
+  'full_width'?: string;
 }
 
 export interface Description {

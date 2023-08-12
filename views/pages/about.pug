@@ -13,9 +13,9 @@ block content
               img.about__gallery__media__image(alt=media.image.alt src=media.image.url)
       each section in about.body 
         if section.slice_type == 'title'
-          h2.about__title=section.primary.text
+          h2.about__title!=section.primary.text.replace(/\n/,'<br>')
         if section.slice_type == 'content'
-          section.about__content
+          section.about__content(class={'about__content--full' : section.primary.full_width == "true", 'about__content--right' : section.primary.type=="Right"})
             .about__content__wrapper 
               p.about__content__label=section.primary.label 
 

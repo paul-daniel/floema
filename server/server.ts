@@ -147,7 +147,7 @@ app.get('/collections', async (req: express.Request, res : express.Response) => 
 
 app.get('/test', async (req: express.Request, res : express.Response) => {
   try {
-    const navigation = await client.getSingle('navigation');
+    const navigation = await client.getSingle('about');
     res.send(navigation.data);
   } catch (error) {
     console.error(error);

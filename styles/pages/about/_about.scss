@@ -1,9 +1,14 @@
 .about {
-
+  background-color: $color-cadet-blue;
+  color: $color-bright-gray;
+  overflow: hidden;
 }
 .about__wrapper {
 
 }
 .about__title{
-
+  margin: auto;
+  text-align: center;
+  max-width: 125rem;
+  @extend %title-100;
 }
