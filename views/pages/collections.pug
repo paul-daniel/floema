@@ -8,7 +8,7 @@ block content
     .collections__wrapper 
       .collections__titles 
         each collection, index in collections
-          .collections__titles__label=`Collection ${numToWord(index)}`
+          .collections__titles__label!=`Collection<br>${numToWord(index)}`
           .collections__titles__title=collection.title
 
       .collections__gallery 
@@ -20,10 +20,8 @@ block content
                   img.collections__gallery__media__image(alt=product.products_product.data.image.alt src=product.products_product.data.image.url)
 
       .collection__content
-        each collection in collections 
-          article.collections__article 
-            h2.collections__article__title=`${collection.title} Collection`
-            .collections__article__description=collection.description
-
-
-
+        each collection, index in collections
+          if index == 0
+            article.collections__article 
+              h2.collections__article__title=`${collection.title} Collection`
+              .collections__article__description!=collection.description.replace(/\n/, '<br>')
