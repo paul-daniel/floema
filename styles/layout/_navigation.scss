@@ -1,28 +1,35 @@
 .navigation{
+  @extend %cover;
 
-}
-
-.navigation__wrapper{
-
+  z-index: 3;
 }
 
 .navigation__link{
-
+  left : 4rem;
+  position: absolute;
+  top : 4rem;
+  width: 12.8rem;
+  height: 2rem;
 }
 
 .navigation__link__icon{
-
+  display: block;
+  width: 12.8rem;
+  height: 2rem;
 }
 
 .navigation__list{
-
+  
 }
 
 .navigation__list__item{
-
+  position : absolute;
+  right: 4rem;
+  top : 4rem;
+  color : $color-quarter-spanish-white;
 }
 
 .navigation__list__link{
-
+  @extend %title-20;
 }
 

@@ -1,10 +1,11 @@
 nav.navigation
-  .navigation__wrapper
-    a.navigation__link(href="/")=meta.title
+  a.navigation__link(href="/")
 
-      svg.navigation__link__icon
+    svg.navigation__link__icon
+      use(href="logo.svg#logo-icon")
 
-    ul.navigation__list
-      each item in navigation.list
+  ul.navigation__list
+    each item in navigation.list
+      if item.text.toLowerCase() == linkedPage
         li.navigation__list__item
           a.navigation__list__link(href=Link(item.link))=item.text
