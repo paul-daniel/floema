@@ -124,14 +124,15 @@
   padding : .8rem;
   margin-right: 3.75rem;
 
+  @include media('<=phone'){
+    height: 7rem;
+    width: 7rem;
+  }
+
 }
 
 .detail__information__highlight__text {
   @extend %description-16;
-
-  @include media('<=tablet'){
-    font-size: 14rem;
-  }
 
   @include media('<=phone'){
     font-size: 3rem;
@@ -154,6 +155,10 @@
   @extend %description-12;
   padding-right: 2.5rem;
   width: 10rem;
+
+  @include media('<=phone'){
+    font-size: 2rem;
+  }
 }
 
 .detail__information__item__description {
