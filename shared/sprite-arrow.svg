@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24.749" height="24.749">
+  <symbol id="arrow" viewBox="0 0 24.749 24.749">
+    <g id="handler1" transform="translate(-1389.327 -602.626)">
+      <g id="Group_952" data-name="Group 952" transform="translate(-24.18 1171.14) rotate(-45)">
+        <path id="Polygon_1" data-name="Polygon 1" d="M3,0,4.2,2.133,6,4,3,3.733,0,4,1.8,2.133Z"
+          transform="translate(1416 612) rotate(90)" fill="#fff" />
+        <path id="Polygon_2" data-name="Polygon 2" d="M3,0,4.2,2.133,6,4,3,3.733,0,4,1.8,2.133Z"
+          transform="translate(1387 618) rotate(-90)" fill="#fff" />
+      </g>
+      <line id="Line_2" data-name="Line 2" x2="16" transform="translate(1396.044 620.657) rotate(-45)" fill="none"
+        stroke="#fff" stroke-linecap="round" stroke-width="2" opacity="0.4" />
+    </g>
+  </symbol>
+</svg>

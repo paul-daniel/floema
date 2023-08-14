@@ -73,5 +73,9 @@
   transform: translate(-50%);
   text-transform: uppercase;
   letter-spacing: 0.05;
-  z-index: 2;
+  z-index: 3;
+}
+
+.home__link__icon{
+  position: absolute;
 }

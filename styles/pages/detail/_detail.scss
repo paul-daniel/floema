@@ -63,6 +63,7 @@
   border-radius: 50%;
   height: 4rem;
   width: 4rem;
+  padding : .8rem;
   margin-right: 3.75rem;
 
 }
@@ -101,7 +102,32 @@
   display: inline-block;
   text-decoration: none;
   color: $color-white;
+  position: relative;
 
   @extend %title-30;
 }
 
+.detail__button{
+  @extend %description-14;
+
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12.4rem;
+  height: 6rem;
+  bottom: 5rem;
+  left: 50%;
+  transform: translate(-50%);
+  text-transform: uppercase;
+  letter-spacing: 0.05;
+  z-index: 3;
+  background: transparent;
+  border : none;
+  color: $color-quarter-spanish-white;
+  cursor:pointer;
+}
+
+.detail__button__icon{
+  @extend %cover;
+}
