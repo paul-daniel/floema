@@ -9,12 +9,23 @@
   top : 4rem;
   width: 12.8rem;
   height: 2rem;
+  transition: opacity 0.4s ease;
+
+  &:hover {
+    opacity: 0.5;
+  }
 }
 
 .navigation__link__icon{
   display: block;
   width: 12.8rem;
   height: 2rem;
+
+  &--collections,
+  &--home,
+  &--detail{
+    color: $color-quarter-spanish-white;
+  }
 }
 
 .navigation__list{
@@ -25,10 +36,15 @@
   position : absolute;
   right: 4rem;
   top : 4rem;
-  color : $color-quarter-spanish-white;
+  color : currentColor;
 }
 
 .navigation__list__link{
   @extend %title-20;
-}
 
+  &--collections,
+  &--home,
+  &--detail{
+    color: $color-quarter-spanish-white;
+  }
+}

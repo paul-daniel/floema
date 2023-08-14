@@ -1,5 +1,16 @@
+*,
+*::before,
+*::after{
+  box-sizing: border-box;
+}
+
 html{
-  font-size: calc((100vw / 1920)*10);
+  font-size: calc((100vw / 1980)*10);
+  line-height: 1;
+
+  @include media ('<=phone') {
+    font-size: calc((100vw / 768)*10);
+  }
 }
 
 body{

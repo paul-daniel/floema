@@ -15,12 +15,12 @@
 
 @import './components/preloader';
 
-@import './layout/navigation';
-
 @import './pages/about/about';
 @import './pages/about/content';
 @import './pages/about/gallery';
 @import './pages/about/highlight';
+
+@import './layout/navigation';
 
 @import './pages/collections/collections';
 @import './pages/detail/detail';

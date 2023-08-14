@@ -81,7 +81,9 @@ app.get('/', async (req: express.Request, res : express.Response) => {
         (collection) => collection.data,
       ) as DataCollection[];
       const home = document.data as Home;
-      res.render('pages/home', { home, collections, linkedPage: 'about' });
+      res.render('pages/home', {
+        home, collections, currentPage: 'home', linkedPage: 'about',
+      });
     } else {
       throw new Error('no data found');
     }
@@ -96,7 +98,7 @@ app.get('/about', async (req: express.Request, res : express.Response) => {
 
     if (document.data) {
       const about = document.data as AboutData;
-      res.render('pages/about', { about, linkedPage: 'collections' });
+      res.render('pages/about', { about, currentPage: 'about', linkedPage: 'collections' });
     } else {
       throw new Error('no data found');
     }
@@ -115,7 +117,7 @@ app.get('/detail/:uid', async (req: express.Request, res : express.Response) => 
 
     if (document.data) {
       const product = document.data as Product;
-      res.render('pages/detail', { product, linkedPage: 'about' });
+      res.render('pages/detail', { product, currentPage: 'detail', linkedPage: 'about' });
     } else {
       throw new Error('no data found');
     }
@@ -136,7 +138,7 @@ app.get('/collections', async (req: express.Request, res : express.Response) => 
 
     if (document && document.length) {
       const collections = document.map((collection) => collection.data) as DataCollection[];
-      res.render('pages/collections', { collections, linkedPage: 'about' });
+      res.render('pages/collections', { collections, currentPage: 'collections', linkedPage: 'about' });
     } else {
       throw new Error('no data found');
     }
