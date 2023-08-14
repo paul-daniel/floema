@@ -47,4 +47,12 @@
   &--detail{
     color: $color-quarter-spanish-white;
   }
+
+  // @include media('<=tablet'){
+  //   font-size: 14rem;
+  // }
+
+  @include media('<=phone'){
+    font-size: 2rem;
+  }
 }

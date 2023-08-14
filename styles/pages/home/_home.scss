@@ -74,6 +74,12 @@
   text-transform: uppercase;
   letter-spacing: 0.05;
   z-index: 3;
+
+  @include media('<phone') {
+    width: 40.8rem;
+    height: 7rem;
+    font-size: 3rem;
+  }
 }
 
 .home__link__icon{
