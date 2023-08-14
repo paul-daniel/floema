@@ -4,14 +4,38 @@
 
   background-color: $color-quicksand;
   color: $color-white;
+
+  @include media('<=tablet'){
+    height: auto;
+    padding: 4rem;
+  }
+
+  @include media('<=phone'){
+    height: auto;
+    padding: 4rem;
+  }
 } 
 
 .detail__wrapper {
   display: flex;
   align-items: center;
 
-  @include media('<phone'){
+  @include media('<=tablet'){
+    padding: 4rem;
+  }
+
+  @include media('<=phone'){
     flex-direction: column;
+  }
+
+  @include media('<=tablet'){
+    height: 100%;
+    padding: 25rem 0;
+  }
+
+  @include media('<=phone'){
+    height: 100%;
+    padding: 25rem 0;
   }
 }
 
@@ -19,6 +43,16 @@
   width: 55.4rem;
   height: 78.2rem;
   position: relative;
+
+  @include media('<=tablet'){
+    width : 25.4em;
+    height: 48.2rem;
+  }
+
+  @include media('<=phone'){
+    width : 66.1rem;
+    height: 93.3rem;
+  }
 }
 
 .detail__media__image {
@@ -30,12 +64,24 @@
 .detail__information {
   padding-left: 8.2rem;
 
+  @include media('<=tablet'){
+    padding-left: 5.2rem;
+  }
+
+  @include media('<=phone'){
+    margin-top: 3rem;
+  }
 }
 
 .detail__information__collection {
   @extend %description-12;
+  
   margin-bottom: 4rem;
   text-transform: uppercase;
+
+  @include media('<=phone'){
+    font-size: 3rem;
+  }
 }
 
 .detail__information__title {
@@ -43,10 +89,18 @@
 
   max-width: 60rem;
   line-height: 1;
+
+  @include media('<=phone'){
+    font-size: 15rem;
+  }
 }
 
 .detail__information__content {
   padding-left: 18rem;
+
+  @include media('<=tablet'){
+    padding-left: 5rem;
+  }
 
 }
 .detail__information__highlights {
@@ -74,6 +128,14 @@
 
 .detail__information__highlight__text {
   @extend %description-16;
+
+  @include media('<=tablet'){
+    font-size: 14rem;
+  }
+
+  @include media('<=phone'){
+    font-size: 3rem;
+  }
 }
 
 .detail__information__list {

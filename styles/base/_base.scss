@@ -8,6 +8,10 @@ html{
   font-size: calc((100vw / 1980)*10);
   line-height: 1;
 
+  @include media ('<=tablet') {
+    font-size: calc((100vw / 1024)*10);
+  }
+
   @include media ('<=phone') {
     font-size: calc((100vw / 768)*10);
   }
