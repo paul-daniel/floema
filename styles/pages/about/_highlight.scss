@@ -17,6 +17,11 @@
   margin: auto;
   position: relative;
 
+  @include media('<tablet'){
+    width: 104rem;
+  }
+
+
   .about__highlight:nth-child(4) & {
     width: 104rem;
   }
@@ -33,6 +38,7 @@
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
+
 }
 
 .about__highlight__title {
@@ -44,12 +50,19 @@
   transform: translate(-50%, -50%) rotate(-90deg);
   padding-bottom: 2rem;
 
+
 }
 
 .about__highlight__media {
   position: absolute;
   height: 76rem;
   width: 54rem;
+
+  @include media('<tablet'){
+    height: 52.8rem;
+    width: 36rem;
+  }
+
 
   .about__highlight:nth-child(4) & {
     height: 52.8rem;
@@ -71,4 +84,5 @@
 .about__highlight__media__image {
   @extend %cover;
   object-fit: cover;
+
 }

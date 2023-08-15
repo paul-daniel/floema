@@ -39,26 +39,88 @@
       order : 3;
     }
   }
+
+  @include media('<tablet'){
+    width: 100%;
+  }
 }
+
+@include media('<tablet'){
+  .about__content--full{
+    margin-left: 0;
+
+    .about__content__media{
+      flex : 1;
+      height: 65rem;
+      width: 110%;
+    }
+  }
+}
+
+@include media('<phone'){
+  .about__content--full{
+    margin-left: 0;
+
+    .about__content__media{
+      flex : 1;
+      height: 65rem;
+      width: 120%;
+    }
+  }
+}
+
 .about__content__wrapper {
   display: flex;
+
+  @include media('<tablet'){
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "media media media"
+      "label description description";
+    row-gap: 12rem;
+    justify-items: center;
+  }
 
 }
 .about__content__label {
   width : 18rem;
+  grid-area: label;
+
+  @include media('<tablet'){
+    font-size: 2.6rem;
+  }
 }
 .about__content_description{
   width : 36.2rem;
   margin-right: 23rem;
+  grid-area: description;
 
   p:not(:first-child) {
     margin-top: 2.5rem;
+  }
+
+  @include media('<tablet'){
+    font-size: 2.6rem;
+    margin-right: 4rem;
+    width: 100%;
   }
 }
 .about__content__media{
   position: relative;
   width: 53.8rem;
   height: 80.8rem;
+  grid-area: media;
+
+  @include media('<tablet'){
+    width: 90%;
+    height: 138rem;
+  }
+
+  @include media('<phone'){
+    width: 100%;
+  }
 }
 .about__content__media__image{
   @extend %cover;
