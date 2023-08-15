@@ -23,8 +23,6 @@ class App {
   createContent() {
     this.content = document.querySelector('.content');
     this.template = this.content?.getAttribute('data-template');
-
-    console.log(this.template);
   }
 
   createPages() {
@@ -35,6 +33,7 @@ class App {
 
     this.page = this.pages.get(this.template ?? 'home');
     this.page?.create();
+    this.page?.show();
   }
 }
 
