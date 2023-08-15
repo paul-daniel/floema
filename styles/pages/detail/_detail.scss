@@ -6,7 +6,7 @@
   color: $color-white;
 
   @include media('<=tablet'){
-    height: auto;
+    height: 100%;
     padding: 4rem;
   }
 
