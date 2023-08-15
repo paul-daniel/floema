@@ -85,6 +85,9 @@
 
 }
 .about__content__label {
+  @extend %description-22;
+
+  font-weight: 500;
   width : 18rem;
   grid-area: label;
 
@@ -93,6 +96,8 @@
   }
 }
 .about__content_description{
+  @extend %description-22;
+
   width : 36.2rem;
   margin-right: 23rem;
   grid-area: description;

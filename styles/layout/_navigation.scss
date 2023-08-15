@@ -21,6 +21,16 @@
   width: 12.8rem;
   height: 2rem;
 
+  @include media('<=tablet'){
+    width: 16.8rem;
+    height: 6rem;
+  }
+
+  @include media('<=phone'){
+    width: 14.8rem;
+    height: 4rem;
+  }
+
   &--collections,
   &--home,
   &--detail{
@@ -40,7 +50,7 @@
 }
 
 .navigation__list__link{
-  @extend %title-20;
+  @extend %title-30;
 
   &--collections,
   &--home,
@@ -52,7 +62,12 @@
   //   font-size: 14rem;
   // }
 
-  @include media('<=phone'){
-    font-size: 2rem;
+  @include media('<=tablet'){
+    font-size: 4rem;
   }
+
+  @include media('<=phone'){
+    font-size: 4rem;
+  }
+
 }
