@@ -5,11 +5,14 @@ import About from './pages/About';
 import Collections from './pages/Collections';
 import Detail from './pages/Detail';
 import Home from './pages/Home';
+import Preloader from './components/Preloader';
 
 type Page = Home | About | Collections | Detail;
 
 class App {
   pages : Map<string, Page> = new Map();
+
+  preloader : Preloader | undefined = undefined;
 
   content : Element | null = null;
 
@@ -18,10 +21,16 @@ class App {
   page : Page | undefined = undefined;
 
   constructor() {
+    this.createPreloader();
     this.createContent();
     this.createPages();
 
     this.addLinkListeners();
+  }
+
+  createPreloader() {
+    this.preloader = new Preloader();
+    this.preloader.once('completed', this.onPreloaded.bind(this));
   }
 
   createContent() {
@@ -38,6 +47,10 @@ class App {
     this.page = this.pages.get(this.template ?? 'home');
     this.page?.create();
     this.page?.show();
+  }
+
+  onPreloaded() {
+    this.preloader?.destroy();
   }
 
   async onChange(url : string) {
@@ -62,6 +75,7 @@ class App {
 
       this.page?.create();
       this.page?.show();
+      this.addLinkListeners();
     } else {
       console.error('request failed');
     }

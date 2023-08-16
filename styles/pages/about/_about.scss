@@ -3,6 +3,8 @@
   color: $color-bright-gray;
   overflow: hidden;
   padding-top: 10rem;
+
+  pointer-events: initial;
 }
 .about__wrapper {
 
