@@ -118,7 +118,9 @@ export default class Page implements IPage {
   }
 
   onResize() {
-    this.scroll.limit = (this.elements.wrapper as HTMLElement).clientHeight - window.innerHeight;
+    if (this.elements.wrapper) {
+      this.scroll.limit = (this.elements.wrapper as HTMLElement).clientHeight - window.innerHeight;
+    }
   }
 
   onMouseWheel(event : unknown | WheelEvent) {
