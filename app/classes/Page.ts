@@ -1,5 +1,6 @@
 import { each } from 'lodash';
 import GSAP from 'gsap';
+import normalizeWheel from 'normalize-wheel';
 
 type ElementOrString = string | Element | null;
 type HTMLElementCollection = ElementOrString | Element[] | NodeListOf<Element> | null;
@@ -124,8 +125,8 @@ export default class Page implements IPage {
   }
 
   onMouseWheel(event : unknown | WheelEvent) {
-    const { deltaY } = event as WheelEvent;
-    this.scroll.target += deltaY;
+    const { pixelY } = normalizeWheel(event as WheelEvent);
+    this.scroll.target += pixelY;
   }
 
   update() {
