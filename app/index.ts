@@ -20,12 +20,16 @@ class App {
 
   page : Page | undefined = undefined;
 
+  frame : number = 0;
+
   constructor() {
     this.createPreloader();
     this.createContent();
     this.createPages();
 
     this.addLinkListeners();
+
+    this.update();
   }
 
   createPreloader() {
@@ -46,11 +50,20 @@ class App {
 
     this.page = this.pages.get(this.template ?? 'home');
     this.page?.create();
-    this.page?.show();
+
+    this.onResize();
   }
 
   onPreloaded() {
+    this.onResize();
     this.preloader?.destroy();
+    this.page?.show();
+  }
+
+  onResize() {
+    if (this.page && this.page.onResize) {
+      this.page.onResize();
+    }
   }
 
   async onChange(url : string) {
@@ -79,6 +92,17 @@ class App {
     } else {
       console.error('request failed');
     }
+  }
+
+  update() {
+    if (this.page && this.page.update) {
+      this.page.update();
+    }
+    this.frame = window.requestAnimationFrame(this.update.bind(this));
+  }
+
+  addEventListeners() {
+    window.addEventListener('resize', this.onResize.bind(this));
   }
 
   addLinkListeners() {

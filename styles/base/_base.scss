@@ -5,8 +5,12 @@
 }
 
 html{
+  @extend %cover;
+
   font-size: calc((100vw / 1980)*10);
   line-height: 1;
+  position: fixed;
+  overflow: hidden;
 
   @include media ('<=tablet') {
     font-size: calc((100vw / 1024)*10);
@@ -18,8 +22,10 @@ html{
 }
 
 body{
+  @extend %cover;
   @extend %description-16;
 
+  position: fixed;
   font-family: $font-suisse-bp;
 }
 
@@ -31,4 +37,8 @@ a{
 
 img{
   vertical-align: middle;
+}
+
+.content{
+  @extend %cover;
 }

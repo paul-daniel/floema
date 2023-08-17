@@ -82,15 +82,9 @@ export default class Preloader extends Component {
       this.animateOut.to(this.element, {
         duration: 1.5,
         ease: 'expo.out',
-        backgroundColor: '#fff',
-      }, '-=1.4');
-
-      this.animateOut.to(this.element, {
-        duration: 1.5,
-        ease: 'expo.out',
         scaleY: 0,
         transformOrigin: '100% 100%',
-      }, '-=1');
+      }, '-=0.7');
 
       this.animateOut.call(() => {
         this.emit('completed');

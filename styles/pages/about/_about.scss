@@ -1,9 +1,9 @@
 .about {
+  @extend %page;
   background-color: $color-cadet-blue;
   color: $color-bright-gray;
-  overflow: hidden;
-  padding-top: 10rem;
 
+  padding-top: 10rem;
   pointer-events: initial;
 }
 .about__wrapper {

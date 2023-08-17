@@ -11,6 +11,7 @@
     "skipLibCheck": true,                       // Skip type checking of declaration files
     "forceConsistentCasingInFileNames": true,   // Disallow inconsistent casing in file names
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false
   },
   "include": [                              // Files to be included in the compilation
     "server/**/*.ts"
