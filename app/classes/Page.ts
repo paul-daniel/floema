@@ -1,6 +1,9 @@
-import { each } from 'lodash';
+import { each, map } from 'lodash';
 import GSAP from 'gsap';
 import normalizeWheel from 'normalize-wheel';
+
+import Title from '../animations/Title';
+import Paragraph from '../animations/Paragraph';
 
 type ElementOrString = string | Element | null;
 type HTMLElementCollection = ElementOrString | Element[] | NodeListOf<Element> | null;
@@ -45,13 +48,21 @@ export default class Page implements IPage {
 
   transformPrefix : string = '';
 
+  animationTitles: Title[];
+
+  animationParagraphs : Paragraph[];
+
   constructor({
     element,
     elements,
     id,
   }: PageConstructor) {
     this.selector = element;
-    this.selectorChildren = { ...elements };
+    this.selectorChildren = {
+      ...elements,
+      animationsTitles: '[data-animation="title"]',
+      animationsParagraphs: '[data-animation="paragraph"]',
+    };
     this.id = id;
     this.element = '';
     this.elements = {};
@@ -63,6 +74,8 @@ export default class Page implements IPage {
       last: 0,
       limit: 1000,
     };
+    this.animationTitles = [];
+    this.animationParagraphs = [];
   }
 
   create() {
@@ -90,6 +103,26 @@ export default class Page implements IPage {
         }
       }
     });
+
+    this.createAnimations();
+  }
+
+  createAnimations() {
+    this.animationTitles = map(this.elements.animationsTitles as Element[], (element) => new Title({
+      element,
+      elements: this.elements,
+    }));
+
+    console.log(this.animationTitles);
+
+    this.animationParagraphs = map(
+      this.elements.animationsParagraphs as Element[],
+      (element) => new Paragraph({
+        element,
+        elements: this.elements,
+      }),
+    );
+    console.log(this.animationParagraphs);
   }
 
   show() {
@@ -122,6 +155,9 @@ export default class Page implements IPage {
     if (this.elements.wrapper) {
       this.scroll.limit = (this.elements.wrapper as HTMLElement).clientHeight - window.innerHeight;
     }
+
+    each(this.animationTitles, (animation) => animation.onResize());
+    each(this.animationParagraphs, (animation) => animation.onResize());
   }
 
   onMouseWheel(event : unknown | WheelEvent) {

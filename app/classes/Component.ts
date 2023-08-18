@@ -2,7 +2,8 @@ import { EventEmitter } from 'events';
 import { each } from 'lodash';
 
 type ElementOrString = string | Element | null;
-type HTMLElementCollection = ElementOrString | Element[] | NodeListOf<Element> | NodeList | null;
+export type HTMLElementCollection =
+ElementOrString | Element[] | NodeListOf<Element> | NodeList | null;
 
 interface IComponent {
   element: ElementOrString;
@@ -42,7 +43,11 @@ export default class Component extends EventEmitter implements IComponent {
   }
 
   create() {
-    this.element = document.querySelector(this.selector as string);
+    if (this.selector instanceof HTMLElement) {
+      this.element = this.selector;
+    } else {
+      this.element = document.querySelector(this.selector as string);
+    }
     this.elements = {};
 
     each(this.selectorChildren, (entry, key) => {
