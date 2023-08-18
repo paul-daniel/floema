@@ -8,10 +8,11 @@ export default class Paragraph extends Animation {
 
   animateIn() {
     GSAP.fromTo(this.element, {
-      autoAlpha: 0,
+      autoAlpha: 0.3,
     }, {
-      duration: 1,
-      delay: 0.5,
+      duration: 0.6,
+      delay: 0.35,
+      ease: 'expo.out',
       autoAlpha: 1,
     });
   }

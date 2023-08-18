@@ -19,7 +19,7 @@ block content
             .about__content__wrapper 
               p.about__content__label(data-animation="paragraph")=section.primary.label 
 
-              .about__content_description(data-animation="paragraph")!=prismicDom.asHTML(section.primary.description)
+              .about__content_description(data-animation="description")!=prismicDom.asHTML(section.primary.description)
 
               figure.about__content__media
                 img.about__content__media__image(alt=section.primary.image.alt data-src=section.primary.image.url)

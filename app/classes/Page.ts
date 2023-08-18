@@ -62,6 +62,7 @@ export default class Page implements IPage {
       ...elements,
       animationsTitles: '[data-animation="title"]',
       animationsParagraphs: '[data-animation="paragraph"]',
+      animationsDescription: '[data-animation="description"]',
     };
     this.id = id;
     this.element = '';
@@ -113,8 +114,6 @@ export default class Page implements IPage {
       elements: this.elements,
     }));
 
-    console.log(this.animationTitles);
-
     this.animationParagraphs = map(
       this.elements.animationsParagraphs as Element[],
       (element) => new Paragraph({
@@ -122,7 +121,34 @@ export default class Page implements IPage {
         elements: this.elements,
       }),
     );
-    console.log(this.animationParagraphs);
+
+    if (!this.elements.animationsDescription) {
+      return;
+    }
+
+    each(this.elements.animationsDescription as Element[], (element) => {
+      const node = element.querySelectorAll('p');
+      each(
+        node,
+        (pElement : HTMLElement) => this.animationParagraphs.push(
+          new Paragraph({
+            element: pElement,
+            elements: this.elements,
+          }),
+        ),
+      );
+    });
+
+    this.animationParagraphs = [
+      ...this.animationParagraphs,
+      ...map(
+        this.elements.animationsDescription[0].querySelectorAll('p'),
+        (element) => new Paragraph({
+          element,
+          elements: this.elements,
+        }),
+      ),
+    ];
   }
 
   show() {
