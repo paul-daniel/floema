@@ -2,8 +2,8 @@
   @extend %page;
   @extend %center;
 
-  background-color: $color-quicksand;
-  color: $color-white;
+  // background-color: $color-quicksand;
+  // color: $color-white;
 
   @include media('<=tablet'){
     height: 100%;

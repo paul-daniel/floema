@@ -50,17 +50,10 @@
 }
 
 .navigation__list__link{
+  @extend %link--hidden;
   @extend %title-30;
 
-  &--collections,
-  &--home,
-  &--detail{
-    color: $color-quarter-spanish-white;
-  }
-
-  // @include media('<=tablet'){
-  //   font-size: 14rem;
-  // }
+  line-height: 1;
 
   @include media('<=tablet'){
     font-size: 4rem;

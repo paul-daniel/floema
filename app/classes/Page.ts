@@ -4,6 +4,7 @@ import normalizeWheel from 'normalize-wheel';
 
 import Title from '../animations/Title';
 import Paragraph from '../animations/Paragraph';
+import colorsManager from './Colors';
 
 type ElementOrString = string | Element | null;
 type HTMLElementCollection = ElementOrString | Element[] | NodeListOf<Element> | null;
@@ -153,6 +154,11 @@ export default class Page implements IPage {
 
   show() {
     return new Promise((resolve) => {
+      colorsManager.change(
+        (this.element as Element).getAttribute('data-background') ?? '',
+        (this.element as Element).getAttribute('data-color') ?? '',
+      );
+
       this.animationIn.to(this.element, {
         autoAlpha: 1,
         onComplete: resolve,

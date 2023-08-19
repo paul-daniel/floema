@@ -28,6 +28,8 @@ export default class Navigation extends Component {
 
       GSAP.to((this.elements.items as NodeList)[0], {
         autoAlpha: 1,
+        duration: 0.75,
+        delay: 0.75,
         pointerEvents: 'all',
       });
 
@@ -38,24 +40,31 @@ export default class Navigation extends Component {
     } else if (template === 'collections') {
       GSAP.to([this.element, this.elements.logo], {
         color: COLOR_QUARTER_SPANISH_WHITE,
+        duration: 1.5,
       });
 
       GSAP.to((this.elements.items as NodeList)[1], {
         autoAlpha: 1,
+        duration: 0.75,
+        delay: 0.75,
         pointerEvents: 'all',
       });
 
       GSAP.to((this.elements.items as NodeList)[0], {
         autoAlpha: 0,
+        duration: 1.5,
         pointerEvents: 'none',
       });
     } else {
       GSAP.to([this.element, this.elements.logo], {
         color: COLOR_QUARTER_SPANISH_WHITE,
+        duration: 1.5,
       });
 
       GSAP.to((this.elements.items as NodeList)[0], {
         autoAlpha: 1,
+        duration: 0.75,
+        delay: 0.75,
         pointerEvents: 'all',
       });
 
