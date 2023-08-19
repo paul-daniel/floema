@@ -153,9 +153,7 @@ export default class Page implements IPage {
 
   show() {
     return new Promise((resolve) => {
-      this.animationIn.fromTo(this.element, {
-        autoAlpha: 0,
-      }, {
+      this.animationIn.to(this.element, {
         autoAlpha: 1,
         onComplete: resolve,
       });

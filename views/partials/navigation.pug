@@ -6,6 +6,5 @@ nav.navigation
 
   ul.navigation__list
     each item in navigation.list
-      if item.text.toLowerCase() == linkedPage
         li.navigation__list__item
-          a.navigation__list__link(href=Link(item.link) class=`navigation__list__link--${currentPage}`)=item.text
+          a.navigation__list__link(href=Link(item.link))=item.text

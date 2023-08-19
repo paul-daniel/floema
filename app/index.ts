@@ -6,6 +6,7 @@ import Collections from './pages/Collections';
 import Detail from './pages/Detail';
 import Home from './pages/Home';
 import Preloader from './components/Preloader';
+import Navigation from './components/Navigation';
 
 type Page = Home | About | Collections | Detail;
 
@@ -20,16 +21,24 @@ class App {
 
   page : Page | undefined = undefined;
 
+  navigation : Navigation | undefined = undefined;
+
   frame : number = 0;
 
   constructor() {
-    this.createPreloader();
     this.createContent();
+
+    this.createPreloader();
+    this.createNavigation();
     this.createPages();
 
     this.addLinkListeners();
 
     this.update();
+  }
+
+  createNavigation() {
+    this.navigation = new Navigation(this.template as string);
   }
 
   createPreloader() {
@@ -66,6 +75,12 @@ class App {
     }
   }
 
+  /**
+   * Define animations and navigation behavior on page change
+   *
+   * @param url the page we are going to
+   * @returns nothing
+   */
   async onChange(url : string) {
     if (!this.content) {
       console.error('no content found');
@@ -82,6 +97,7 @@ class App {
 
       const divContent = div.querySelector('.content');
       this.template = divContent!.getAttribute('data-template') as string;
+      this.navigation?.onChange(this.template);
       this.content.setAttribute('data-template', this.template);
       this.page = this.pages.get(this.template ?? '');
       this.content.innerHTML = divContent!.innerHTML as string;
