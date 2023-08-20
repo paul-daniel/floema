@@ -5,6 +5,7 @@ import normalizeWheel from 'normalize-wheel';
 import Title from '../animations/Title';
 import Paragraph from '../animations/Paragraph';
 import colorsManager from './Colors';
+import HighlightTitle from '../animations/HighlightTitle';
 
 type ElementOrString = string | Element | null;
 type HTMLElementCollection = ElementOrString | Element[] | NodeListOf<Element> | null;
@@ -53,6 +54,8 @@ export default class Page implements IPage {
 
   animationParagraphs : Paragraph[];
 
+  animationsHighlightTitle : HighlightTitle[];
+
   constructor({
     element,
     elements,
@@ -64,6 +67,7 @@ export default class Page implements IPage {
       animationsTitles: '[data-animation="title"]',
       animationsParagraphs: '[data-animation="paragraph"]',
       animationsDescription: '[data-animation="description"]',
+      animationsHighlightTitle: '[data-animation="highlight-title"]',
     };
     this.id = id;
     this.element = '';
@@ -78,6 +82,7 @@ export default class Page implements IPage {
     };
     this.animationTitles = [];
     this.animationParagraphs = [];
+    this.animationsHighlightTitle = [];
   }
 
   create() {
@@ -118,6 +123,14 @@ export default class Page implements IPage {
     this.animationParagraphs = map(
       this.elements.animationsParagraphs as Element[],
       (element) => new Paragraph({
+        element,
+        elements: this.elements,
+      }),
+    );
+
+    this.animationParagraphs = map(
+      this.elements.animationsHighlightTitle as Element[],
+      (element) => new HighlightTitle({
         element,
         elements: this.elements,
       }),
