@@ -103,6 +103,8 @@ class App {
       this.content.innerHTML = divContent!.innerHTML as string;
 
       this.page?.create();
+      this.onResize();
+      this.page?.update();
       this.page?.show();
       this.addLinkListeners();
     } else {
