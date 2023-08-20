@@ -7,7 +7,6 @@
 html{
   @extend %cover;
 
-  background: $color-contessa;
   font-size: calc((100vw / 1980)*10);
   line-height: 1;
   position: fixed;

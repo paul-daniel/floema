@@ -13,7 +13,7 @@ import { Home } from './model/home.type';
 import DocumentType from './model/documentType.type';
 import { Product } from './model/product.type';
 import { DataCollection } from './model/collection.type';
-import { handleLinkResolver, numberToWords } from './helper/utils';
+import { backgroundColorResolver, handleLinkResolver, numberToWords } from './helper/utils';
 import { DataPreloader } from './model/preloader.type';
 import { Navigation } from './model/navigation.type';
 
@@ -38,6 +38,7 @@ app.use((req: express.Request, res : express.Response, next : NextFunction) => {
   res.locals.prismicDom = prismicH;
   res.locals.numToWord = numberToWords;
   res.locals.Link = handleLinkResolver;
+  res.locals.background = backgroundColorResolver;
   next();
 });
 
