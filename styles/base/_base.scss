@@ -37,6 +37,14 @@ a{
 
 img{
   vertical-align: middle;
+  opacity: 0;
+  transition: all 1.2s ease;
+  transform: scale(1.2);
+
+  &.loaded{
+    opacity: 1;
+    transform : scale(1);
+  }
 }
 
 .content{

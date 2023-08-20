@@ -83,4 +83,16 @@
 
 .home__link__icon{
   position: absolute;
+
+  .home__link__icon__path{
+    transition: stroke .5s ease;
+  }
+
+  &:hover{
+    .home__link__icon__path{
+      stroke: #FFC400;
+    }
+  }
 }
+
+

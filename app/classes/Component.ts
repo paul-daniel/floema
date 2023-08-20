@@ -2,7 +2,7 @@
 import { EventEmitter } from 'events';
 import { each } from 'lodash';
 
-type ElementOrString = string | Element | null;
+export type ElementOrString = string | Element | null;
 export type HTMLElementCollection =
 ElementOrString | Element[] | NodeListOf<Element> | NodeList | null;
 

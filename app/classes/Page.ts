@@ -6,6 +6,7 @@ import Title from '../animations/Title';
 import Paragraph from '../animations/Paragraph';
 import colorsManager from './Colors';
 import HighlightTitle from '../animations/HighlightTitle';
+import AsyncLoad from './AsyncLoad';
 
 type ElementOrString = string | Element | null;
 type HTMLElementCollection = ElementOrString | Element[] | NodeListOf<Element> | null;
@@ -68,6 +69,7 @@ export default class Page implements IPage {
       animationsParagraphs: '[data-animation="paragraph"]',
       animationsDescription: '[data-animation="description"]',
       animationsHighlightTitle: '[data-animation="highlight-title"]',
+      preloaders: '[data-src]',
     };
     this.id = id;
     this.element = '';
@@ -112,6 +114,13 @@ export default class Page implements IPage {
     });
 
     this.createAnimations();
+    this.createPreloaders();
+  }
+
+  createPreloaders() {
+    each(this.elements.preloaders as HTMLElement[], (element) => {
+      new AsyncLoad(element);
+    });
   }
 
   createAnimations() {

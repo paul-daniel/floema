@@ -201,4 +201,14 @@
 
 .detail__button__icon{
   @extend %cover;
+
+    .detail__button__icon__path{
+      transition: stroke .5s ease;
+    }
+  
+    &:hover{
+      .detail__button__icon__path{
+        stroke: #FFC400;
+      }
+  }
 }
