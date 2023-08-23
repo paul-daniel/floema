@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { each } from 'lodash';
 import GSAP from 'gsap';
 import Component from '../classes/Component';
@@ -50,7 +49,7 @@ export default class TransitionCanvas extends Component {
     // Control points for the bezier curve (arc)
     const controlPoint1X: number = (this.element as HTMLCanvasElement).width / 4;
     const controlPoint1Y: number = ((this.element as HTMLCanvasElement).height - height) - adjustedIntensity;
-    const controlPoint2X: number = 3 * (this.element as HTMLCanvasElement).width / 4;
+    const controlPoint2X: number = (3 * (this.element as HTMLCanvasElement).width) / 4;
     const controlPoint2Y: number = ((this.element as HTMLCanvasElement).height - height) - adjustedIntensity;
 
     // Draw bezier curve (arc) from the left side to the right side of the canvas

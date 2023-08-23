@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-new */
 import { each } from 'lodash';
 import About from './pages/About';
 import Collections from './pages/Collections';
@@ -129,8 +127,8 @@ class App {
     each(links, (link) => {
       const linkModifier = link;
       linkModifier.onclick = (event) => {
-        const { href } = link;
         event.preventDefault();
+        const { href } = link;
         this.onChange(href);
       };
     });

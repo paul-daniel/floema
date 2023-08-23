@@ -29,7 +29,11 @@ block content
               if section.primary.label
                 p.about__highlight__label(data-animation="paragraph")=section.primary.label
 
-              h3.about__highlight__title(data-animation="highlight-title")=section.primary.title
+              if section.primary.url.url
+                h3.about__highlight__title(data-animation="highlight-title")
+                  a.about__highlight__link(href=section.primary.url.url target="blank" alt="social media")=section.primary.title
+              else 
+                h3.about__highlight__title(data-animation="highlight-title")=section.primary.title
 
               each media in section.items 
                 figure.about__highlight__media

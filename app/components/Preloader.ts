@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { each } from 'lodash';
 import GSAP from 'gsap';
 import Component from '../classes/Component';

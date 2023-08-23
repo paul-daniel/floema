@@ -67,6 +67,16 @@
   transform: translate(-50%, -50%) rotate(-90deg);
   padding-bottom: 2rem;
 
+  & .about__highlight__link{
+    text-decoration: none;
+    color : $color-bright-gray;
+    transition: all .5s ease;
+    cursor: pointer;
+    &:hover{
+      color: $color-quarter-spanish-white;
+    }
+  }
+
   @include media('<phone') {
     margin-top: 5rem;
     font-size: 30rem;

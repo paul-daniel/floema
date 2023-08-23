@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import { EventEmitter } from 'events';
 import { each } from 'lodash';
 
@@ -15,7 +14,7 @@ interface IComponent {
 
 interface ComponentConstructor {
   element: ElementOrString;
-  elements: { [x: string]: HTMLElementCollection };
+  elements?: { [x: string]: HTMLElementCollection };
 }
 
 export default class Component extends EventEmitter implements IComponent {

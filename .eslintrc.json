@@ -33,6 +33,11 @@
           "ts": "never",
           "tsx": "never"
         }
-     ]
+     ],
+     "class-methods-use-this" : "off",
+     "no-new": "off",
+     "no-param-reassign" : "off",
+     "max-len" : "off",
+     "linebreak-style" : "off"
     }
 }

@@ -87,6 +87,8 @@ export default class Page implements IPage {
     this.animationsHighlightTitle = [];
   }
 
+  /** CREATION METHODS */
+
   create() {
     this.element = document.querySelector(this.selector as string);
     this.elements = {};
@@ -174,6 +176,8 @@ export default class Page implements IPage {
     ];
   }
 
+  /** ANIMATIONS */
+
   show() {
     return new Promise((resolve) => {
       colorsManager.change(
@@ -194,7 +198,7 @@ export default class Page implements IPage {
 
   hide() {
     return new Promise((resolve) => {
-      this.removeEventListeners();
+      this.destroy();
 
       this.animationOut.to(this.element, {
         autoAlpha: 0,
@@ -202,6 +206,8 @@ export default class Page implements IPage {
       });
     });
   }
+
+  /** EVENT LISTENERS */
 
   onResize() {
     if (this.elements.wrapper) {
@@ -237,5 +243,11 @@ export default class Page implements IPage {
 
   removeEventListeners() {
     window.removeEventListener('mousewheel', this.onMouseWheel.bind(this));
+  }
+
+  /** DESTROY */
+
+  destroy() {
+    this.removeEventListeners();
   }
 }
