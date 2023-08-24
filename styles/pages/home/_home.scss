@@ -47,7 +47,7 @@
 .home__gallery{
   @extend %cover;
 
-  visibility: hidden;
+  visibility: visible;
 }
 
 .home__gallery__media {

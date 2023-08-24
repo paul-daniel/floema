@@ -38,6 +38,7 @@
      "no-new": "off",
      "no-param-reassign" : "off",
      "max-len" : "off",
-     "linebreak-style" : "off"
+     "linebreak-style" : "off",
+     "no-use-before-define": "off"
     }
 }

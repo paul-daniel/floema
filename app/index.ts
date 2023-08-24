@@ -1,4 +1,5 @@
 import { each } from 'lodash';
+import Canvas from './components/Canvas';
 import About from './pages/About';
 import Collections from './pages/Collections';
 import Detail from './pages/Detail';
@@ -12,6 +13,8 @@ class App {
   pages : Map<string, Page> = new Map();
 
   preloader : Preloader | undefined = undefined;
+
+  canvas : Canvas | undefined = undefined;
 
   content : Element | null = null;
 
@@ -28,6 +31,7 @@ class App {
 
     this.createPreloader();
     this.createNavigation();
+    this.createCanvas();
     this.createPages();
 
     this.addEventListeners();
@@ -43,6 +47,10 @@ class App {
   createPreloader() {
     this.preloader = new Preloader();
     this.preloader.once('completed', this.onPreloaded.bind(this));
+  }
+
+  createCanvas() {
+    this.canvas = new Canvas();
   }
 
   createContent() {
@@ -70,6 +78,10 @@ class App {
   }
 
   onResize() {
+    if (this.canvas && this.canvas.onResize) {
+      this.canvas.onResize();
+    }
+
     if (this.page && this.page.onResize) {
       this.page.onResize();
     }
@@ -121,6 +133,10 @@ class App {
   /** LOOPS */
 
   update() {
+    if (this.canvas && this.canvas.update) {
+      this.canvas.update();
+    }
+
     if (this.page && this.page.update) {
       this.page.update();
     }

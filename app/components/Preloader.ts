@@ -48,7 +48,10 @@ export default class Preloader extends Component {
 
   onAssetLoaded() {
     this.length += 1;
-    const percent = (this.length / (this.elements.images as NodeListOf<HTMLImageElement>).length);
+    let percent = (this.length / (this.elements.images as NodeListOf<HTMLImageElement>).length);
+
+    if (percent * 100 > 100) percent = 1;
+
     (this.elements.numberText as HTMLElement).innerHTML = `${Math.round(percent * 100)}%`;
 
     if (percent === 1) {

@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-use-before-define */
 import each from 'lodash/each';
 
 export const split = ({ element, expression = ' ', append = true }: {
