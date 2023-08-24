@@ -18,6 +18,8 @@ export default class AsyncLoad extends Component {
             (this.element as HTMLImageElement).onload = () => {
               (this.element as HTMLImageElement).classList.add('loaded');
             };
+          } else {
+            (this.element as HTMLImageElement).src = (this.element as HTMLImageElement).getAttribute('data-src') ?? '';
           }
         }
       });

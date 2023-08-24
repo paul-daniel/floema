@@ -67,8 +67,8 @@ export default class TransitionCanvas extends Component {
     this.onBeforeAssetLoaded();
 
     each(this.elements.images as NodeListOf<HTMLImageElement>, (element) => {
-      element.setAttribute('src', element.getAttribute('data-src') ?? '');
-      // element.src = element.getAttribute('data-src') ?? '';
+      // element.setAttribute('src', element.getAttribute('data-src') ?? '');
+      element.src = element.getAttribute('data-src') ?? '';
       element.onload = () => this.onAssetLoaded();
     });
   }

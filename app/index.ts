@@ -30,6 +30,7 @@ class App {
     this.createNavigation();
     this.createPages();
 
+    this.addEventListeners();
     this.addLinkListeners();
 
     this.update();
@@ -56,7 +57,8 @@ class App {
     this.pages.set('detail', new Detail());
 
     this.page = this.pages.get(this.template ?? 'home');
-    this.page?.create();
+
+    if (this.page) { this.page.create(); }
 
     this.onResize();
   }
@@ -73,13 +75,17 @@ class App {
     }
   }
 
+  onPopState() {
+    this.onChange(window.location.pathname, false);
+  }
+
   /**
    * Define animations and navigation behavior on page change
    *
    * @param url the page we are going to
    * @returns nothing
    */
-  async onChange(url : string) {
+  async onChange(url : string, push :boolean = true) {
     if (!this.content) {
       console.error('no content found');
       return;
@@ -90,7 +96,9 @@ class App {
     if (request.status === 200) {
       const html = await request.text();
       const div = document.createElement('div');
-
+      if (push) {
+        window.history.pushState({}, '', url);
+      }
       div.innerHTML = html;
 
       const divContent = div.querySelector('.content');
@@ -110,6 +118,8 @@ class App {
     }
   }
 
+  /** LOOPS */
+
   update() {
     if (this.page && this.page.update) {
       this.page.update();
@@ -117,7 +127,11 @@ class App {
     this.frame = window.requestAnimationFrame(this.update.bind(this));
   }
 
+  /** EVENT LISTENERS */
+
   addEventListeners() {
+    window.addEventListener('popstate', this.onPopState.bind(this));
+
     window.addEventListener('resize', this.onResize.bind(this));
   }
 
