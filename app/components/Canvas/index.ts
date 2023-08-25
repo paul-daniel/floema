@@ -12,6 +12,17 @@ export interface ViewPort {
   width: number;
 }
 
+export interface MoveCoordinates {
+  start: number,
+  distance: number,
+  end: number,
+}
+
+export interface Coordinates {
+  x:MoveCoordinates,
+  y:MoveCoordinates
+}
+
 export default class Canvas {
   renderer: Renderer | undefined = undefined;
 
@@ -25,7 +36,25 @@ export default class Canvas {
 
   sizes: ViewPort | undefined = undefined;
 
+  isDown: boolean = false;
+
+  x : MoveCoordinates;
+
+  y : MoveCoordinates;
+
   constructor() {
+    this.x = {
+      start: 0,
+      distance: 0,
+      end: 0,
+    };
+
+    this.y = {
+      start: 0,
+      distance: 0,
+      end: 0,
+    };
+
     this.createRenderer();
     this.createCamera();
     this.createScene();
@@ -89,9 +118,55 @@ export default class Canvas {
     this.home?.onResize(this.sizes);
   }
 
+  onTouchDown(e: TouchEvent & MouseEvent) {
+    this.isDown = true;
+
+    this.x.start = e.touches ? e.touches[0].clientX : e.clientX;
+    this.y.start = e.touches ? e.touches[0].clientY : e.clientY;
+
+    if (this.home) {
+      this.home.onTouchDown();
+    }
+  }
+
+  onTouchMove(e: TouchEvent & MouseEvent) {
+    if (!this.isDown) return;
+
+    const x = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const y = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+
+    this.x.end = x;
+    this.y.end = y;
+
+    const values = {
+      x: this.x,
+      y: this.y,
+    };
+
+    if (this.home) {
+      this.home.onTouchMove(values);
+    }
+  }
+
+  onTouchUp(e: TouchEvent & MouseEvent) {
+    this.isDown = false;
+
+    const x = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const y = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+
+    this.x.end = x;
+    this.y.end = y;
+
+    if (this.home) {
+      this.home.onTouchUp();
+    }
+    console.log('up', { x, y });
+  }
   /** UPDATE */
 
   update() {
+    if (this.home) { this.home.update(); }
+
     this.renderer?.render({
       camera: this.camera,
       scene: this.scene,

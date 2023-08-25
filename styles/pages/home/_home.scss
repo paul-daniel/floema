@@ -35,15 +35,24 @@
 .home__titles {
   @extend %vertical-titles;
   z-index: 2;
-  opacity: .8
+  opacity: .8;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .home__titles__label{
   @extend %vertical-titles__label;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .home__titles__title{
   @extend %vertical-titles__title;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .home__gallery{
@@ -110,6 +119,9 @@
   text-transform: uppercase;
   letter-spacing: 0.05;
   z-index: 3;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 
   @include media('<phone') {
     width: 40.8rem;
