@@ -9,7 +9,7 @@ import vertex from '../../shaders/plane-vertex.glsl';
 // @ts-ignore
 import fragment from '../../shaders/plane-fragment.glsl';
 import { ViewPort } from '.';
-import { PlaneCoordinates } from './Home';
+import { LerpCoordinates, PlaneCoordinates } from './Home';
 
 interface MediaProps {
   element : HTMLImageElement;
@@ -92,12 +92,15 @@ export default class Media {
       fragment,
       uniforms: {
         tMap: { value: this.texture },
+        uStrength: { value: 0 },
         uAlpha: { value: 0 },
         uSpeed: { value: 0 },
+        uOffset: { value: [0, 0] },
         uViewportSizes: { value: [this.sizes.width, this.sizes.height] },
         uPlaneSizes: { value: [0, 0] },
         uImageSizes: { value: [0, 0] },
       },
+      transparent: true,
     });
   }
 
@@ -147,11 +150,12 @@ export default class Media {
     this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - ((this.y) * this.sizes.height) + this.extra.y;
   }
 
-  update(scroll : PlaneCoordinates, speed : number) {
-    if (!this.bounds || !this.program) return;
+  update(scroll : PlaneCoordinates, y: LerpCoordinates) {
+    if (!this.bounds || !this.program || !this.mesh) return;
     this.updateX(scroll.x);
     this.updateY(scroll.y);
 
+    this.mesh.program.uniforms.uStrength.value = ((y.current - y.last) / window.innerWidth) * 10;
     // this.program.uniforms.uspeed.value = speed;
   }
 
@@ -176,10 +180,14 @@ export default class Media {
   }
 
   onResize(sizes:ViewPort, scroll :PlaneCoordinates) {
+    if (!this.mesh) return;
     this.extra = {
       x: 0,
       y: 0,
     };
+
+    this.sizes = sizes;
+    this.mesh.program.uniforms.uOffset.value = [this.sizes.width, this.sizes.height];
 
     this.createBounds();
     this.updateX(scroll && scroll.x);

@@ -90,7 +90,6 @@ export default class Canvas {
 
   createHome() {
     if (!this.scene || !this.gl || !this.sizes) return;
-    console.log(this.sizes);
     this.home = new Home({
       gl: this.gl,
       scene: this.scene,
@@ -163,7 +162,6 @@ export default class Canvas {
     if (this.home) {
       this.home.onTouchUp();
     }
-    console.log('up', { x, y });
   }
 
   onWheel(event: NormalizedWheel) {

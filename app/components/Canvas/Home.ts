@@ -15,7 +15,8 @@ export interface LerpCoordinates{
   current: number,
   target : number,
   lerp : number,
-  direction: 'right' | 'left' | 'top' | 'bottom'
+  direction: 'right' | 'left' | 'top' | 'bottom',
+  last:number,
 }
 
 export interface PlaneCoordinates{
@@ -40,7 +41,7 @@ export default class Home {
 
   medias : Media[] = [];
 
-  speed: LerpCoordinates;
+  speed: number;
 
   scrollCurrent: PlaneCoordinates;
 
@@ -64,6 +65,7 @@ export default class Home {
       target: 0,
       lerp: 0.1,
       direction: 'top',
+      last: 0,
     };
 
     this.y = {
@@ -71,6 +73,7 @@ export default class Home {
       target: 0,
       lerp: 0.1,
       direction: 'left',
+      last: 0,
     };
 
     this.scrollCurrent = {
@@ -83,12 +86,7 @@ export default class Home {
       y: 0,
     };
 
-    this.speed = {
-      current: 0,
-      target: 0,
-      lerp: 0.1,
-      direction: 'top',
-    };
+    this.speed = 2;
 
     this.createGeometry();
     this.createGallery();
@@ -128,7 +126,7 @@ export default class Home {
   }
 
   onTouchDown() {
-    this.speed.target = 1;
+    this.speed = 0;
 
     this.scrollCurrent.x = this.scroll.x;
     this.scrollCurrent.y = this.scroll.y;
@@ -143,7 +141,7 @@ export default class Home {
   }
 
   onTouchUp() {
-    this.speed.target = 0;
+    this.speed = 2;
   }
 
   onWheel({ pixelX, pixelY } : NormalizedWheel) {
@@ -161,8 +159,8 @@ export default class Home {
   }
 
   update() {
-    this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.lerp);
-
+    // this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.lerp);
+    this.y.target += this.speed;
     this.x.current = 0;
     this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp);
 
@@ -188,34 +186,32 @@ export default class Home {
 
         if (x < -(this.sizes.width / 2)) {
           media.extra.x += this.gallerySizes.width;
-          console.log('outside of screen left', (this.sizes.width / 2));
         }
       } else if (this.x.direction === 'right') {
         const x = media.mesh.position.x - media.mesh.scale.x / 2;
 
         if (x > (this.sizes.width / 2)) {
           media.extra.x -= this.gallerySizes.width;
-          console.log('outside of screen right', (this.sizes.width / 2));
         }
       }
 
       if (this.y.direction === 'top') {
         const y = media.mesh.position.y + media.mesh.scale.y / 2;
-
-        if (y < -(this.sizes.width / 2)) {
+        this.speed = 2;
+        if (y < -(this.sizes.width / 2) + 0.5) {
           media.extra.y += this.gallerySizes.height;
-          console.log('outside of screen top');
         }
       } else if (this.y.direction === 'bottom') {
         const y = media.mesh.position.y - media.mesh.scale.y / 2;
-
-        if (y > (this.sizes.width / 2)) {
+        this.speed = -2;
+        if (y > (this.sizes.width / 2) - 0.5) {
           media.extra.y -= this.gallerySizes.height;
-          console.log('outside of screen bottom');
         }
       }
 
-      media.update(this.scroll, this.speed.current);
+      media.update(this.scroll, this.y);
     });
+
+    this.y.last = this.y.current;
   }
 }
