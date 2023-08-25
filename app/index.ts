@@ -1,4 +1,5 @@
 import { each } from 'lodash';
+import normalizeWheel from 'normalize-wheel';
 import Canvas from './components/Canvas';
 import About from './pages/About';
 import Collections from './pages/Collections';
@@ -8,6 +9,13 @@ import Preloader from './components/Preloader';
 import Navigation from './components/Navigation';
 
 type Page = Home | About | Collections | Detail;
+
+export interface NormalizedWheel {
+  spinX: number;
+  spinY: number;
+  pixelX: number;
+  pixelY: number;
+}
 
 class App {
   pages : Map<string, Page> = new Map();
@@ -148,6 +156,18 @@ class App {
     }
   }
 
+  onWheel(e) {
+    const normalizedWheel = normalizeWheel(e) as NormalizedWheel;
+
+    if (this.canvas && this.canvas.onWheel) {
+      this.canvas.onWheel(normalizedWheel);
+    }
+
+    if (this.page && this.page.onWheel) {
+      this.page.onWheel(normalizedWheel);
+    }
+  }
+
   /** LOOPS */
 
   update() {
@@ -165,6 +185,8 @@ class App {
 
   addEventListeners() {
     window.addEventListener('popstate', this.onPopState.bind(this));
+
+    window.addEventListener('mousewheel', this.onWheel.bind(this));
 
     window.addEventListener('mousedown', this.onTouchDown.bind(this));
     window.addEventListener('mousemove', this.onTouchMove.bind(this));

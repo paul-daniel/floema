@@ -1,6 +1,5 @@
 import { each, map } from 'lodash';
 import GSAP from 'gsap';
-import normalizeWheel from 'normalize-wheel';
 
 import Title from '../animations/Title';
 import Paragraph from '../animations/Paragraph';
@@ -218,8 +217,7 @@ export default class Page implements IPage {
     each(this.animationParagraphs, (animation) => animation.onResize());
   }
 
-  onMouseWheel(event : unknown | WheelEvent) {
-    const { pixelY } = normalizeWheel(event as WheelEvent);
+  onWheel({ pixelY }) {
     this.scroll.target += pixelY;
   }
 
@@ -238,11 +236,11 @@ export default class Page implements IPage {
   }
 
   addEventListeners() {
-    window.addEventListener('mousewheel', this.onMouseWheel.bind(this));
+
   }
 
   removeEventListeners() {
-    window.removeEventListener('mousewheel', this.onMouseWheel.bind(this));
+
   }
 
   /** DESTROY */

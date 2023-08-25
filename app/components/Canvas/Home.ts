@@ -2,7 +2,8 @@ import { map } from 'lodash';
 import GSAP from 'gsap';
 import { OGLRenderingContext, Plane, Transform } from 'ogl';
 import Media from './Media';
-import { Coordinates, MoveCoordinates, ViewPort } from '.';
+import { Coordinates, ViewPort } from '.';
+import { NormalizedWheel } from '../..';
 
 interface HomeProps{
   gl: OGLRenderingContext;
@@ -10,20 +11,24 @@ interface HomeProps{
   sizes: ViewPort;
 }
 
-interface LerpCoordinates{
+export interface LerpCoordinates{
   current: number,
   target : number,
   lerp : number,
   direction: 'right' | 'left' | 'top' | 'bottom'
 }
 
-interface PlaneCoordinates{
+export interface PlaneCoordinates{
   x: number,
   y: number
 }
 
 export default class Home {
   mediasElements : NodeListOf<HTMLImageElement> | undefined = undefined;
+
+  galleryElement : HTMLElement;
+
+  galleryBounds : DOMRect | undefined = undefined;
 
   geometry: Plane | undefined = undefined;
 
@@ -45,8 +50,11 @@ export default class Home {
 
   y: LerpCoordinates;
 
+  gallerySizes: { width: number; height: number; } | undefined = undefined;
+
   constructor({ gl, scene, sizes } : HomeProps) {
     this.group = new Transform();
+    this.galleryElement = document.querySelector('.home__gallery') as HTMLElement;
     this.mediasElements = document.querySelectorAll<HTMLImageElement>('.home__gallery__media__image');
     this.gl = gl;
     this.sizes = sizes;
@@ -106,8 +114,17 @@ export default class Home {
     }));
   }
 
-  onResize(size:ViewPort) {
-    map(this.medias, (media) => (media.onResize(size)));
+  onResize(sizes:ViewPort) {
+    this.sizes = sizes;
+
+    this.galleryBounds = this.galleryElement.getBoundingClientRect();
+
+    this.gallerySizes = {
+      width: (this.galleryBounds.width / window.innerWidth) * this.sizes.width,
+      height: (this.galleryBounds.height / window.innerHeight) * this.sizes.height,
+    };
+
+    map(this.medias, (media) => (media.onResize(sizes, this.scroll)));
   }
 
   onTouchDown() {
@@ -129,11 +146,25 @@ export default class Home {
     this.speed.target = 0;
   }
 
-  update() {
-    this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.lerp); // prettier-ignore
+  onWheel({ pixelX, pixelY } : NormalizedWheel) {
+    this.x.target += pixelX;
+    this.y.target += pixelY;
+  }
 
-    this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp); // prettier-ignore
-    this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp); // prettier-ignore
+  // Animations
+  show() {
+    map(this.medias, (media) => media.show());
+  }
+
+  hide() {
+    map(this.medias, (media) => media.hide());
+  }
+
+  update() {
+    this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.lerp);
+
+    this.x.current = 0;
+    this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp);
 
     if (this.scroll.x < this.x.current) {
       this.x.direction = 'right';
@@ -150,9 +181,41 @@ export default class Home {
     this.scroll.x = this.x.current;
     this.scroll.y = this.y.current;
 
-    map(this.medias, (media) => media.update({
-      x: this.x.current,
-      y: this.y.current,
-    }));
+    map(this.medias, (media) => {
+      if (!media.mesh || !this.sizes || !this.gallerySizes) return;
+      if (this.x.direction === 'left') {
+        const x = media.mesh.position.x + media.mesh.scale.x / 2;
+
+        if (x < -(this.sizes.width / 2)) {
+          media.extra.x += this.gallerySizes.width;
+          console.log('outside of screen left', (this.sizes.width / 2));
+        }
+      } else if (this.x.direction === 'right') {
+        const x = media.mesh.position.x - media.mesh.scale.x / 2;
+
+        if (x > (this.sizes.width / 2)) {
+          media.extra.x -= this.gallerySizes.width;
+          console.log('outside of screen right', (this.sizes.width / 2));
+        }
+      }
+
+      if (this.y.direction === 'top') {
+        const y = media.mesh.position.y + media.mesh.scale.y / 2;
+
+        if (y < -(this.sizes.width / 2)) {
+          media.extra.y += this.gallerySizes.height;
+          console.log('outside of screen top');
+        }
+      } else if (this.y.direction === 'bottom') {
+        const y = media.mesh.position.y - media.mesh.scale.y / 2;
+
+        if (y > (this.sizes.width / 2)) {
+          media.extra.y -= this.gallerySizes.height;
+          console.log('outside of screen bottom');
+        }
+      }
+
+      media.update(this.scroll, this.speed.current);
+    });
   }
 }

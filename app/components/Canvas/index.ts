@@ -6,6 +6,7 @@ import {
 } from 'ogl';
 
 import Home from './Home';
+import { NormalizedWheel } from '../..';
 
 export interface ViewPort {
   height: number;
@@ -65,7 +66,9 @@ export default class Canvas {
   /** CREATE METHODS */
 
   createRenderer() {
-    this.renderer = new Renderer();
+    this.renderer = new Renderer({
+      alpha: true,
+    });
 
     this.gl = this.renderer.gl;
 
@@ -121,7 +124,7 @@ export default class Canvas {
   onTouchDown(e: TouchEvent & MouseEvent) {
     this.isDown = true;
 
-    this.x.start = e.touches ? e.touches[0].clientX : e.clientX;
+    this.x.start = e.clientX;
     this.y.start = e.touches ? e.touches[0].clientY : e.clientY;
 
     if (this.home) {
@@ -132,7 +135,7 @@ export default class Canvas {
   onTouchMove(e: TouchEvent & MouseEvent) {
     if (!this.isDown) return;
 
-    const x = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const x = e.clientX;
     const y = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
 
     this.x.end = x;
@@ -151,7 +154,7 @@ export default class Canvas {
   onTouchUp(e: TouchEvent & MouseEvent) {
     this.isDown = false;
 
-    const x = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const x = e.clientX;
     const y = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
 
     this.x.end = x;
@@ -162,6 +165,13 @@ export default class Canvas {
     }
     console.log('up', { x, y });
   }
+
+  onWheel(event: NormalizedWheel) {
+    if (this.home) {
+      this.home.onWheel(event);
+    }
+  }
+
   /** UPDATE */
 
   update() {
