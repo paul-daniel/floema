@@ -7,13 +7,15 @@ import {
 import vertex from '../../shaders/plane-vertex.glsl';
 // @ts-ignore
 import fragment from '../../shaders/plane-fragment.glsl';
+import { ViewPort } from '.';
 
 interface MediaProps {
   element : HTMLImageElement;
   gl: OGLRenderingContext;
   geometry: Plane;
   scene:Transform;
-  index:number
+  index:number;
+  sizes: ViewPort
 }
 
 export default class Media {
@@ -35,14 +37,27 @@ export default class Media {
 
   index : number;
 
+  sizes: ViewPort;
+
+  bounds: DOMRect | undefined = undefined;
+
+  height : number | undefined = undefined;
+
+  width : number | undefined = undefined;
+
+  x : number = 0;
+
+  y: number = 0;
+
   constructor({
-    element, gl, geometry, scene, index,
+    element, gl, geometry, scene, index, sizes,
   } : MediaProps) {
     this.element = element;
     this.gl = gl;
     this.geometry = geometry;
     this.scene = scene;
     this.index = index;
+    this.sizes = sizes;
 
     this.createTexture();
     this.createProgram();
@@ -57,9 +72,10 @@ export default class Media {
     this.image.src = this.element.getAttribute('data-src') as string;
 
     // eslint-disable-next-line no-return-assign
-    this.image.onload = () => (
-      this.texture!.image = this.image as ImageRepresentation
-    );
+    this.image.onload = () => {
+      this.program!.uniforms.uImageSizes.value = [this.image?.naturalWidth, this.image?.naturalHeight];
+      this.texture!.image = this.image as ImageRepresentation;
+    };
   }
 
   createProgram() {
@@ -68,6 +84,8 @@ export default class Media {
       fragment,
       uniforms: {
         tMap: { value: this.texture },
+        uPlaneSizes: { value: [0, 0] },
+        uImageSizes: { value: [0, 0] },
       },
     });
   }
@@ -83,5 +101,50 @@ export default class Media {
     this.mesh.setParent(this.scene);
 
     this.mesh.position.x += this.index * this.mesh.scale.x;
+  }
+
+  createBounds() {
+    if (!this.mesh) return;
+    this.bounds = this.element.getBoundingClientRect();
+
+    this.updateScale();
+    this.updateX();
+    this.updateY();
+
+    this.mesh.program.uniforms.uPlaneSizes.value = [this.mesh.scale.x, this.mesh.scale.y];
+  }
+
+  updateScale() {
+    if (!this.bounds || !this.mesh) return;
+
+    this.height = this.bounds.height / window.innerHeight;
+    this.width = this.bounds.width / window.innerWidth;
+
+    this.mesh.scale.x = (this.sizes.width * this.width);
+    this.mesh.scale.y = this.sizes.height * this.height;
+
+    this.x = (this.bounds.left / window.innerWidth);
+    this.y = this.bounds.top / window.innerHeight;
+
+    console.log(this.mesh.scale.x);
+  }
+
+  updateX(x = 0) {
+    if (!this.bounds || !this.mesh) return;
+    this.mesh.position.x = (-this.sizes.width / 2) + (this.mesh.scale.x / 2) + (this.x * this.sizes.width);
+  }
+
+  updateY(y = 0) {
+    if (!this.bounds || !this.mesh) return;
+    this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - (this.y * this.sizes.height);
+  }
+
+  update(scroll) {
+    this.updateX(scroll.x);
+    this.updateY(scroll.y);
+  }
+
+  onResize(size:ViewPort) {
+    this.createBounds();
   }
 }

@@ -35,6 +35,7 @@
 .home__titles {
   @extend %vertical-titles;
   z-index: 2;
+  opacity: .8
 }
 
 .home__titles__label{
