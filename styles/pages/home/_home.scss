@@ -2,8 +2,6 @@
   @extend %center;
   @extend %page;
 
-  // background-color: $color-contessa;
-  // color: $color-quarter-spanish-white;
   text-align: center;
 
   &::after,
@@ -13,7 +11,7 @@
     left : 0;
     position: absolute;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
   }
 
   &::before{
@@ -32,27 +30,55 @@
   
 }
 
+.home__titles__wrapper{
+  display: flex;
+  flex-wrap: nowrap;
+  transform: translateY(0) rotate(-90deg)
+}
+
+// .home__titles {
+//   @extend %vertical-titles;
+//   z-index: 1 !important;
+//   -webkit-user-select: none; /* Safari */
+//   -ms-user-select: none; /* IE 10 and IE 11 */
+//   user-select: none; /* Standard syntax */
+// }
+
+// .home__titles__label{
+//   @extend %vertical-titles__label;
+//   -webkit-user-select: none; /* Safari */
+//   -ms-user-select: none; /* IE 10 and IE 11 */
+//   user-select: none; /* Standard syntax */
+// }
+
+// .home__titles__title{
+//   @extend %vertical-titles__title;
+//   -webkit-user-select: none; /* Safari */
+//   -ms-user-select: none; /* IE 10 and IE 11 */
+//   user-select: none; /* Standard syntax */
+// }
+
+// .home__titles__wrapper{
+  
+// }
+
 .home__titles {
-  @extend %vertical-titles;
-  z-index: 2;
-  opacity: .8;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  display: flex;
 }
 
 .home__titles__label{
-  @extend %vertical-titles__label;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  @extend %description-12;
+  align-self: center;
+  transform: rotate(90deg);
+  text-transform:uppercase;
+  text-align: center;
+  margin: 0 3rem;
+  letter-spacing: 0.05rem;
 }
 
 .home__titles__title{
-  @extend %vertical-titles__title;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  @extend %title-200;
+  align-self: center;
 }
 
 .home__gallery{

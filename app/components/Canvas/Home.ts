@@ -64,7 +64,7 @@ export default class Home {
       current: 0,
       target: 0,
       lerp: 0.1,
-      direction: 'top',
+      direction: 'bottom',
       last: 0,
     };
 
@@ -158,6 +158,14 @@ export default class Home {
     map(this.medias, (media) => media.hide());
   }
 
+  isMobile() : boolean {
+    return window.innerWidth <= 768;
+  }
+
+  isTablet() {
+
+  }
+
   update() {
     // this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.lerp);
     this.y.target += this.speed;
@@ -198,13 +206,13 @@ export default class Home {
       if (this.y.direction === 'top') {
         const y = media.mesh.position.y + media.mesh.scale.y / 2;
         this.speed = 2;
-        if (y < -(this.sizes.width / 2) + 0.5) {
+        if (y < -(this.sizes.width / 2) + (this.isMobile() ? -0.5 : 0.5)) {
           media.extra.y += this.gallerySizes.height;
         }
       } else if (this.y.direction === 'bottom') {
         const y = media.mesh.position.y - media.mesh.scale.y / 2;
         this.speed = -2;
-        if (y > (this.sizes.width / 2) - 0.5) {
+        if (y > (this.sizes.width / 2) - (this.isMobile() ? -0.5 : 0.5)) {
           media.extra.y -= this.gallerySizes.height;
         }
       }

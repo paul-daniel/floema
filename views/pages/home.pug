@@ -6,10 +6,27 @@ block variables
 block content
   .home(data-background="#C97164" data-color="#F9F1E7")
     .home__wrapper
-      .home__titles 
-        each collection, index in collections
-          .home__titles__label=`Collection ${numToWord(index)}`
-          .home__titles__title=collection.title
+      .home__titles__wrapper
+        .home__titles 
+          each collection, index in collections
+            .home__titles__label=`Collection ${numToWord(index)}`
+            .home__titles__title=`${collection.title} `
+        .home__titles 
+          each collection, index in collections
+            .home__titles__label=`Collection ${numToWord(index)}`
+            .home__titles__title=collection.title
+        .home__titles 
+          each collection, index in collections
+            .home__titles__label=`Collection ${numToWord(index)}`
+            .home__titles__title=collection.title
+        .home__titles 
+          each collection, index in collections
+            .home__titles__label=`Collection ${numToWord(index)}`
+            .home__titles__title=collection.title
+        .home__titles 
+          each collection, index in collections
+            .home__titles__label=`Collection ${numToWord(index)}`
+            .home__titles__title=collection.title
           
       .home__gallery    
         each media in home.gallery
