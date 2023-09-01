@@ -2,6 +2,11 @@
 
 Floema is a website about passion for jewel.
 
+You can check a first version here :
+- [Floema on Vercel](https://floema-ice.vercel.app)
+
+I am still making some change to the project. I will provide complete documentation after.
+
 # Useful links
 
 A methodology to name your classes across your markup : [https://getbem.com/introduction/](https://getbem.com/introduction/)
